@@ -72,7 +72,7 @@ def activate_relay():
 	activate_relay(DEFAULT_RELAY_TIMER)
 
 def activate_relay(release_time):
-	print "activating relay for %s ms" % release_time
+	print "activating relay for %s s" % release_time
 	pino_relay.high()
 	sleep(release_time)
 	pino_relay.low()
