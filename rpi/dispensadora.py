@@ -2,8 +2,8 @@
 import sys
 from Pubnub import Pubnub
 
-import RPi.GPIO as GPIO
-import pingo
+#import RPi.GPIO as GPIO
+#import pingo
 from time import sleep
 import json
 
@@ -38,7 +38,10 @@ channel = 'dispensadora'
 def callback(message, channel):
 	if message['action'] == "release":
 		print("RELEASING...")
-		activate_relay(message['release_time'] or DEFAULT_RELAY_TIMER);
+		if 'release_time' in message:
+			activate_relay(message['release_time'])
+		else:
+			activate_relay(DEFAULT_RELAY_TIMER)
 	else:
 		print(message)
 
@@ -70,9 +73,9 @@ def activate_relay():
 
 def activate_relay(release_time):
 	print "activating relay for %s ms" % release_time
-	#pino_relay.high()
-	#sleep(release_time)
-	#pino_relay.low()
+	pino_relay.high()
+	sleep(release_time)
+	pino_relay.low()
 
 
 pubnub.subscribe(channel, callback=callback, error=callback,
