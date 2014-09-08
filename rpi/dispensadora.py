@@ -8,7 +8,7 @@ from time import sleep
 import json
 
 
-DEFAULT_RELAY_TIMER = 1000
+DEFAULT_RELAY_TIMER = 1
 
 
 placa = pingo.rpi.RaspberryPi()  # *
