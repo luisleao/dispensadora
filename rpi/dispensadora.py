@@ -77,6 +77,7 @@ def activate_relay(release_time):
 	sleep(release_time)
 	pino_relay.low()
 	sleep(release_time)
+	print("OK")
 
 
 pubnub.subscribe(channel, callback=callback, error=callback,
