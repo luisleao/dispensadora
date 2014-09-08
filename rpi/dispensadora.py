@@ -2,9 +2,14 @@
 import sys
 from Pubnub import Pubnub
 
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import pingo
 from time import sleep
+import json
+
+
+DEFAULT_RELAY_TIMER = 1000
+
 
 placa = pingo.rpi.RaspberryPi()  # *
 pino_relay = placa.pins[7]
@@ -31,7 +36,16 @@ channel = 'dispensadora'
 
 # Asynchronous usage
 def callback(message, channel):
-	print(message)
+	if message['action'] == "release":
+		print("RELEASING...")
+		activate_relay(message['release_time'] or DEFAULT_RELAY_TIMER);
+	else:
+		print(message)
+
+
+#		"action": "release",
+#		"timestamp": new Date(),
+#		"id": "glass"
 
 
 def error(message):
@@ -52,12 +66,13 @@ def disconnect(message):
 
 
 def activate_relay():
-	activate_relay(1000)
+	activate_relay(DEFAULT_RELAY_TIMER)
 
-def activate_relay(time):
-	pino_relay.high()
-	sleep(time)
-	pino_relay.low()
+def activate_relay(release_time):
+	print "activating relay for %s ms" % release_time
+	#pino_relay.high()
+	#sleep(release_time)
+	#pino_relay.low()
 
 
 pubnub.subscribe(channel, callback=callback, error=callback,
