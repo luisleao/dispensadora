@@ -39,7 +39,7 @@ def callback(message, channel):
 	if message['action'] == "release":
 		print("RELEASING...")
 		if 'release_time' in message:
-			activate_relay(float(message['release_time'])
+			activate_relay(float(message['release_time']))
 		else:
 			activate_relay(DEFAULT_RELAY_TIMER)
 	else:
