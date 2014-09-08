@@ -2,8 +2,8 @@
 import sys
 from Pubnub import Pubnub
 
-#import RPi.GPIO as GPIO
-#import pingo
+import RPi.GPIO as GPIO
+import pingo
 from time import sleep
 import json
 
